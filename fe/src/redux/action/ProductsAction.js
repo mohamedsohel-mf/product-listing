@@ -1,11 +1,14 @@
 import ProductService from "../../services/ProductService";
-import {SET_ALL_PRODUCTS} from "./ActionTypes";
+import {ALTER_SORT_FILTER, SET_ALL_PRODUCTS} from "./ActionTypes";
 
-export const getALlProducts = (products) => ({
+const getALlProducts = (products) => ({
   type: SET_ALL_PRODUCTS,
   products,
 });
-
+export const setSortFilter = (sortData) => ({
+  type: ALTER_SORT_FILTER,
+  sortData,
+});
 export const getProducts = async (dispatch, filter) => {
   try {
     const allProductResponse = await ProductService.getAllProducts(filter);

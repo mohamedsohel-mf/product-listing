@@ -1,16 +1,10 @@
-import React, { useState } from 'react';
-import {Button, Modal, ModalHeader, ModalBody, Row, Col, CustomInput, FormGroup, Navbar} from 'reactstrap';
-import Footer from "./layout/footer";
+import React from 'react';
+import PropTypes from 'prop-types';
+import {
+  Button, Modal, ModalHeader, ModalBody, Row, Col, CustomInput,
+} from 'reactstrap';
 
-const Filter = (props) => {
-	const {
-		buttonLabel,
-		className
-	} = props;
-	const [modal, setModal] = useState(false);
-	
-	const toggle = () => setModal(!modal);
-	return (
+const Filter = ({toggle, className}) => (
 		<div>
 			<Button color="danger" onClick={toggle}>Open Modal</Button>
 			<Modal isOpen toggle={toggle} className={className} backdrop="Static" centered size="lg">
@@ -21,7 +15,7 @@ const Filter = (props) => {
 							<div className="py-1">
 								Brand
 							</div>
-							<hr className="w-100 "/>
+							<hr className="w-100 " />
 							<div className="py-1">
 								Color
 							</div>
@@ -39,6 +33,14 @@ const Filter = (props) => {
 				</ModalBody>
 			</Modal>
 		</div>
-	);
-};
+);
 export default Filter;
+
+Filter.propTypes = {
+  toggle: PropTypes.func.isRequired,
+  className: PropTypes.string,
+};
+
+Filter.defaultProps = {
+  className: '',
+};

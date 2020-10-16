@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import {CustomInput, Row, Col} from "reactstrap";
 
 export const RadioButton = ({
-		fontClass, label, onClick,
+		fontClass, label, onChange,
 		value, className, name,
-		type,
+		type, id, checkedValue
 }) => (
 	<>
 		<Row>
@@ -16,20 +16,23 @@ export const RadioButton = ({
 				</span>
 			</Col>
 			<Col className="text-right">
-				<CustomInput type={type} id={name} name={name} label="" value={value} />
+				<CustomInput type={type} id={id} name={name} label="" value={value} onChange={onChange} checked={value === JSON.stringify(checkedValue)} />
 			</Col>
 		</Row>
 	</>
 )
 RadioButton.propTypes = {
-	onClick: PropTypes.func.isRequired,
+	onChange: PropTypes.func.isRequired,
 	value: PropTypes.string.isRequired,
 	type: PropTypes.string.isRequired,
 	label: PropTypes.string.isRequired,
 	name: PropTypes.string.isRequired,
+	id: PropTypes.string.isRequired,
+	checkedValue: PropTypes.objectOf(PropTypes.any),
 	className: PropTypes.string,
 };
 RadioButton.defaultProps = {
 	className: '',
 	isLoading: false,
+	checkedValue: {},
 };

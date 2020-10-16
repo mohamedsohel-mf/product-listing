@@ -30,6 +30,7 @@ module.exports = {
     "react-hooks/exhaustive-deps": "warn",
     "react/jsx-filename-extension": "off",
     "react/jsx-indent": "off",
+    "react/jsx-indent-props": "off",
     "no-nested-ternary": "off",
     "no-console": "warn",
     "quotes": "off",

@@ -1,5 +1,5 @@
 import initialState from "./initialState";
-import {SET_ALL_PRODUCTS} from "../action/ActionTypes";
+import {ALTER_SORT_FILTER, SET_ALL_PRODUCTS} from "../action/ActionTypes";
 
 const ProductsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -7,6 +7,15 @@ const ProductsReducer = (state = initialState, action) => {
       return {
         ...state,
         products: action.products,
+      };
+    }
+    case ALTER_SORT_FILTER: {
+      return {
+        ...state,
+        filterData: {
+          ...state.filterData,
+          sort: JSON.parse(action.sortData),
+        },
       };
     }
     default: return state;

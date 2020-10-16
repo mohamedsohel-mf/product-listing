@@ -1,25 +1,13 @@
 import React, {useState, useEffect} from "react";
 import PropTypes from 'prop-types';
 import {
-  Button, Card, CardBody,
-  CardImg, CardSubtitle, CardText,
+  Card, CardBody,
+  CardImg, CardSubtitle,
   CardTitle, Col, Row,
 } from "reactstrap";
 import {getProducts} from "../redux/action/ProductsAction";
 
-const filterData = {
-  sort: {
-    createdAt: "DESC",
-  },
-  filter: {
-		color: ["blue"],
-	},
-  pagination: {
-    skip: 0,
-    limit: 5,
-  },
-};
-const Products = ({dispatch, products}) => {
+const Products = ({dispatch, products, filterData}) => {
   const [loading, setLoading] = useState(true);
   /**
 	 * call tasks action too get all the tasks
@@ -34,15 +22,15 @@ const Products = ({dispatch, products}) => {
     } catch (e) {
       setLoading(false);
     }
-  }, [dispatch]);
+  }, [dispatch, filterData]);
   useEffect(() => {
     getAllProducts();
   }, [getAllProducts]);
   return (
 		<Card>
-			{products.length ? (
+			{!loading ? (
 				<Row className="mt-5">
-					{products.map((product) => (
+					{products.length ? products.map((product) => (
 						<>
 							<Col md="3">
 								<Card>
@@ -58,7 +46,7 @@ const Products = ({dispatch, products}) => {
 								</Card>
 							</Col>
 						</>
-					))}
+					)) : 'No Products available'}
 					
 					{/*<Col md="3">*/}
 					{/*	<Card>*/}
@@ -83,4 +71,5 @@ export default Products;
 Products.propTypes = {
   dispatch: PropTypes.func.isRequired,
   products: PropTypes.arrayOf(PropTypes.any).isRequired,
+  filterData: PropTypes.objectOf(PropTypes.any).isRequired,
 };
