@@ -1,3 +1,5 @@
 /node_modules
 .env
 .idea
+/fe/node_modules
+/fe/.idea

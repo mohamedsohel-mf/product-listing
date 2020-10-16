@@ -1,7 +1,12 @@
+const productService = require('../services/products');
+/*
+	get all the products according to the filters
+	Filters are json stringified object
+ */
 exports.getProducts = (req, res) => {
-	console.log('hii')
-	res.json({
-		name: "dummy",
-		price: "12"
-	})
+	return productService.findProducts(req, res);
+}
+
+exports.getFilters = (req, res)=>{
+	return productService.findFilters(req, res)
 }

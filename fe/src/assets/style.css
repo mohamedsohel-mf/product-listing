@@ -1,0 +1,38 @@
+.nav-middle{
+    margin-right: 50%;
+}
+.custom-nav-bg{
+    background-color: #ffff !important;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+}
+.img-height{
+    max-height: 300px;
+    width: auto;
+}
+.filter-border{
+    border-left: groove;
+    border-left-width: 1px;
+}
+.custom-filter{
+    bottom: unset;
+}
+.overflow-filter{
+    max-height: 300px;
+    overflow: scroll;
+}
+@media (min-width: 1025px) {
+    .custom-nav{
+        width: 100%;
+        max-width: 1170px;
+        margin: 0 auto !important;
+    }
+    .custom-filter{
+        bottom: unset;
+        width: 100%;
+        max-width: 49.9rem;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+}
