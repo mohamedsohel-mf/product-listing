@@ -10,7 +10,7 @@
     "data:destroy": "node seeder -d",
     "client": "npm start --prefix fe",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix fe && npm run build --prefix fe"
   },
   "repository": {
     "type": "git",
