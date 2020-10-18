@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Navbar, Row, Col} from "reactstrap";
 import Sort from "../Sort";
-import Filter from "../Filter";
+import FilterContainer from "../../container/FilterContainer";
 
 const Footer = () => {
   const [sortModal, setSortModal] = useState(false);
@@ -19,21 +19,21 @@ const Footer = () => {
   return (
 		<Navbar color="light" light fixed="bottom" className="custom-nav custom-nav-bg">
 			<Row className="w-100 text-center">
-				<Col md="6">
-				<span className="text-uppercase" onClick={toogleSortModal} aria-hidden="true">
+				<Col md="6" className="curser-pointer" onClick={toogleSortModal}>
+				<span className="text-uppercase">
 					<i className="fa fa-sort-amount-asc" aria-hidden="true" />
 					Sort
 				</span>
 				</Col>
-				<Col md="6 filter-border">
-				<span className="text-uppercase" aria-hidden="true" onClick={toogleFilterModal}>
+				<Col md="6 filter-border" className="curser-pointer" onClick={toogleFilterModal}>
+				<span className="text-uppercase ">
 					<i className="fa fa-filter" aria-hidden="true" />
 					Filter
 				</span>
 				</Col>
 			</Row>
 			{sortModal && <Sort toggle={toogleSortModal} />}
-			{filterModal && <Filter toggle={toogleFilterModal} />}
+			{filterModal && <FilterContainer toggle={toogleFilterModal} />}
 		</Navbar>
   );
 };

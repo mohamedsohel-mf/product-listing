@@ -1,3 +1,7 @@
+body {
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRg9xZHedpD8IZEQ-DMeGdAhaqNiTcRyr3LDQ&usqp=CAU");
+    background-repeat: repeat;
+}
 .nav-middle{
     margin-right: 50%;
 }
@@ -8,7 +12,7 @@
     border-radius: 0.25rem;
 }
 .img-height{
-    max-height: 300px;
+    height: 200px;
     width: auto;
 }
 .filter-border{
@@ -18,9 +22,26 @@
 .custom-filter{
     bottom: unset;
 }
-.overflow-filter{
+.position-middle{
+    margin-top: 45%;
+    margin-left: 50%;
+}
+.overflow-filter {
     max-height: 300px;
     overflow: scroll;
+}
+.curser-pointer{
+    cursor: pointer;
+}
+.filter-bar{
+    padding-left: 1rem;
+    padding-top: 0.7rem !important;
+}
+.filter-bar-active{
+    padding-left: 2rem;
+    height: 3rem;
+    margin: -1rem;
+    background-color: white;
 }
 @media (min-width: 1025px) {
     .custom-nav{

@@ -7,6 +7,7 @@ app.use(cors())
 //conncet to db
 connectDB();
 
+
 //init middleware for getting json object in controller
 app.use(express.json({ extended: false }));
 

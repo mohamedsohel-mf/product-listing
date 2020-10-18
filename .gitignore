@@ -3,3 +3,5 @@
 .idea
 /fe/node_modules
 /fe/.idea
+/fe/.DS_Store
+/fe/src/.DS_Store

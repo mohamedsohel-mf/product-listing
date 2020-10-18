@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import {
   Card, CardBody,
   CardImg, CardSubtitle,
-  CardTitle, Col, Row,
+  CardTitle, Col, Row, Spinner,
 } from "reactstrap";
-import {getProducts} from "../redux/action/ProductsAction";
+import {getFliters, getProducts} from "../redux/action/ProductsAction";
 
 const Products = ({dispatch, products, filterData}) => {
   const [loading, setLoading] = useState(true);
   /**
-	 * call tasks action too get all the tasks
+	 * call products action to get all the products
 	 * @type {Function}
 	 */
   const getAllProducts = React.useCallback(async () => {
@@ -26,6 +26,39 @@ const Products = ({dispatch, products, filterData}) => {
   useEffect(() => {
     getAllProducts();
   }, [getAllProducts]);
+  /**
+   * call filter action too get all the filters
+   * @type {Function}
+   */
+  const getAllFilters = React.useCallback(async () => {
+    try {
+      await getFliters(dispatch);
+    } catch (e) {
+      console.log(e);
+      // setLoading(false);
+    }
+  }, [dispatch]);
+  useEffect(() => {
+    getAllFilters();
+  }, [getAllFilters]);
+  /**
+   * calculate percentage
+   * @param num
+   * @param percentage
+   * @returns {number}
+   */
+  const percentage = (num, percentage) => {
+    return (num / 100) * percentage;
+  };
+
+  /**
+   * separate number with commas
+   * @param x
+   * @returns {string}
+   */
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   return (
 		<Card>
 			{!loading ? (
@@ -38,8 +71,15 @@ const Products = ({dispatch, products, filterData}) => {
 									<CardBody>
 										<CardTitle>{product.name}</CardTitle>
 										<CardTitle>
-											{product.price} {' '}
-											<s className="text-danger">{product.discount}% off</s>
+                      <i className="fa fa-inr" aria-hidden="true" />
+                      {numberWithCommas(product.price)} {' '}
+											<s className="small">
+                        <i className="fa fa-inr" aria-hidden="true" />
+                        {`${numberWithCommas(Math.round(product.price + percentage(product.price, product.discount)))}`}
+											</s> {' '}
+											<span className="text-danger">
+                        {product.discount}% off
+											</span>
 										</CardTitle>
 										<CardSubtitle className="small text-truncate">{product.description}</CardSubtitle>
 									</CardBody>
@@ -47,22 +87,12 @@ const Products = ({dispatch, products, filterData}) => {
 							</Col>
 						</>
 					)) : 'No Products available'}
-					
-					{/*<Col md="3">*/}
-					{/*	<Card>*/}
-					{/*		<CardImg className="img-fluid" top width="100%" src="https://stylishop.com/pub/media/catalog/product/8/0/80292913_1.jpg" alt="Card image cap" />*/}
-					{/*		<CardBody>*/}
-					{/*			<CardTitle>Patiala Blue</CardTitle>*/}
-					{/*			<CardTitle>*/}
-					{/*				$35*/}
-					{/*				<s className="text-danger">70% off</s>*/}
-					{/*			</CardTitle>*/}
-					{/*			<CardSubtitle className="small text-truncate">Product Description</CardSubtitle>*/}
-					{/*		</CardBody>*/}
-					{/*	</Card>*/}
-					{/*</Col>*/}
 				</Row>
-			) : 'Loading...'}
+			) : (
+			  <>
+          <Spinner animation="grow" className="position-middle" />
+        </>
+      )}
 		</Card>
   );
 };

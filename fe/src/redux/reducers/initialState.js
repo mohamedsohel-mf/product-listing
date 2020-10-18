@@ -1,5 +1,7 @@
 export default {
   products: [],
+  filters: {
+  },
   filterData: {
     sort: {
       createdAt: "DESC",
@@ -8,7 +10,7 @@ export default {
     },
     pagination: {
       skip: 0,
-      limit: 5,
+      limit: 100,
     },
   },
 };

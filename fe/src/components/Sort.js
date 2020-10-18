@@ -46,7 +46,7 @@ const Sort = ({toggle, className}) => {
 						<hr />
 						<RadioButton
 							label="Discount -- High to Low"
-							value={JSON.stringify({discount: "ASC"})}
+							value={JSON.stringify({discount: "DESC"})}
 							checkedValue={filterData.sort}
 							name="sort"
 							type="radio"

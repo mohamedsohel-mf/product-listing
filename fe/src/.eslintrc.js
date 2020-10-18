@@ -35,6 +35,7 @@ module.exports = {
     "no-console": "warn",
     "quotes": "off",
     "no-tabs": "off",
+    "no-mixed-space-and-tabs":"off",
     "no-unused-expressions" : "off",
     "no-param-reassign": "off",
     "object-curly-spacing": "off",
