@@ -56,7 +56,7 @@ exports.findProducts = async (req, res)=> {
 			query = {$and: filterData}
 		}
 		productDetails.totalCount = await Product.count();
-		productDetails.products = await Product.find(query).limit(pagination.limit).skip(pagination.skip).sort(sort);
+		productDetails.products = await Product.find(query, {}, pagination).sort(sort);
 		res.json(productDetails);
 	} catch (err){
 		console.log(err.message);
