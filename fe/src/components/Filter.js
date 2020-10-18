@@ -47,30 +47,30 @@ const Filter = ({
   };
   return (
 		<div>
-			<Modal isOpen toggle={toggle} className={className} backdrop="Static" centered size="lg">
+			<Modal isOpen toggle={toggle} className={className} backdrop="static" centered size="lg">
 				<ModalHeader toggle={toggle} className="py-1">Filter</ModalHeader>
 				<ModalBody className="pt-0">
 					<Row>
 						<Col md={4} className="bg-light overflow-filter">
 							{Object.keys(filters).map((filterKey) => (
-								<>
-									<div
+								<div key={filterKey}>
+									<div aria-hidden="true"
 										className={`py-1 text-capitalize filter-bar pt-1 curser-pointer ${filterKey === activeTab ? `filter-bar-active` : ``}`}
 										onClick={() => { setFilterTag(filterKey); }}
 									>
 										{filterKey}
 									</div>
 									<hr />
-								</>
+								</div>
 							))}
 						</Col>
 						<Col md={8} className="overflow-filter pt-1">
 							<div>
 								{filters[activeTab] && filters[activeTab].map((value) => (
-									<>
+									<div key={value}>
 										<CustomInput
 											id={`${activeTab}_${value}`}
-											onClick={handleChange}
+											onChange={handleChange}
 											type="checkbox"
 											name={activeTab}
 											label={value}
@@ -78,7 +78,7 @@ const Filter = ({
 											className="mt-2"
 											checked={filterValue[activeTab] ? filterValue[activeTab].includes(value) : false}
 										/>
-									</>
+									</div>
 								))}
 							</div>
 						</Col>

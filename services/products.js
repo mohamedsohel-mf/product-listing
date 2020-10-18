@@ -1,6 +1,11 @@
 
 const Product = require('../model/products');
 
+/**
+ * call db to get all the filters
+ * @param {*} req 
+ * @param {*} res 
+ */
 exports.findFilters = async (req, res) => {
 	try {
 		const filters = {};
@@ -13,9 +18,12 @@ exports.findFilters = async (req, res) => {
 		res.status(500).send({ msg: err.message });
 	}
 }
-
+/**
+ * return all the products with filter
+ */
 exports.findProducts = async (req, res)=> {
 	try {
+		const productDetails = {}
 		const filters = JSON.parse(Buffer.from(req.params.filters, "base64").toString("ascii"));
 		console.log(filters);
 		const {filter, sort, pagination} = filters
@@ -47,14 +55,20 @@ exports.findProducts = async (req, res)=> {
 		if(filterData.length){
 			query = {$and: filterData}
 		}
-		const products = await Product.find(query, {}, pagination).sort(sort);
-		res.json(products);
+		productDetails.totalCount = await Product.count();
+		productDetails.products = await Product.find(query).limit(pagination.limit).skip(pagination.skip).sort(sort);
+		res.json(productDetails);
 	} catch (err){
 		console.log(err.message);
 		res.status(500).send({ msg: err.message });
 	}
 	return res;
 }
+/**
+ * map filter with the filter key
+ * @param {*} filter 
+ * @param {*} keyValue 
+ */
 const filterAppend = (filter, keyValue) => {
 	console.log(filter);
 	return filter.map((data)=> {

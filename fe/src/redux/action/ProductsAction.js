@@ -4,6 +4,7 @@ import {
   SET_ALL_PRODUCTS,
   SET_ALL_FILTERS,
   ALTER_FILTER_DATA,
+  ALTER_PAGINATION_DATA,
 } from "./ActionTypes";
 
 const getALlProducts = (products) => ({
@@ -14,7 +15,8 @@ const getALlProducts = (products) => ({
 const getAllFilters = (filters) => ({
   type: SET_ALL_FILTERS,
   filters,
-})
+});
+
 export const setSortFilter = (sortData) => ({
   type: ALTER_SORT_FILTER,
   sortData,
@@ -23,6 +25,11 @@ export const setSortFilter = (sortData) => ({
 export const setFilter = (filterData) => ({
   type: ALTER_FILTER_DATA,
   filterData,
+});
+
+export const setPagination = (pagination) => ({
+  type: ALTER_PAGINATION_DATA,
+  pagination,
 });
 export const getProducts = async (dispatch, filter) => {
   try {

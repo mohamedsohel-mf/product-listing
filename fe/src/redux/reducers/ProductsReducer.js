@@ -1,5 +1,11 @@
 import initialState from "./initialState";
-import {ALTER_FILTER_DATA, ALTER_SORT_FILTER, SET_ALL_FILTERS, SET_ALL_PRODUCTS} from "../action/ActionTypes";
+import {
+  ALTER_FILTER_DATA,
+  ALTER_PAGINATION_DATA,
+  ALTER_SORT_FILTER,
+  SET_ALL_FILTERS,
+  SET_ALL_PRODUCTS
+} from "../action/ActionTypes";
 
 const ProductsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -30,6 +36,15 @@ const ProductsReducer = (state = initialState, action) => {
         filterData: {
           ...state.filterData,
           filter: action.filterData,
+        },
+      };
+    }
+    case ALTER_PAGINATION_DATA: {
+      return {
+        ...state,
+        filterData: {
+          ...state.filterData,
+          pagination: action.pagination,
         },
       };
     }

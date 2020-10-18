@@ -1,5 +1,5 @@
 export default {
-  products: [],
+  products: {},
   filters: {
   },
   filterData: {
@@ -10,7 +10,7 @@ export default {
     },
     pagination: {
       skip: 0,
-      limit: 100,
+      limit: 4,
     },
   },
 };

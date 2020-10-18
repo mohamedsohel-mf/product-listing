@@ -5,9 +5,10 @@ import {
   CardImg, CardSubtitle,
   CardTitle, Col, Row, Spinner,
 } from "reactstrap";
-import {getFliters, getProducts} from "../redux/action/ProductsAction";
+import InfiniteScroll from 'react-infinite-scroll-component';
+import {getFliters, getProducts, setPagination} from "../redux/action/ProductsAction";
 
-const Products = ({dispatch, products, filterData}) => {
+const Products = ({dispatch, productDetails, filterData}) => {
   const [loading, setLoading] = useState(true);
   /**
 	 * call products action to get all the products
@@ -44,12 +45,10 @@ const Products = ({dispatch, products, filterData}) => {
   /**
    * calculate percentage
    * @param num
-   * @param percentage
+   * @param per
    * @returns {number}
    */
-  const percentage = (num, percentage) => {
-    return (num / 100) * percentage;
-  };
+  const percentage = (num, per) => (num / 100) * per;
 
   /**
    * separate number with commas
@@ -59,26 +58,43 @@ const Products = ({dispatch, products, filterData}) => {
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+
+  const lazyLoading = (limit) => {
+    const data = Object.assign({}, filterData);
+    const pagination = Object.assign({}, data.pagination);
+    pagination.limit = limit + pagination.limit;
+    dispatch(setPagination(pagination));
+  };
+  const {products} = productDetails;
   return (
 		<Card>
 			{!loading ? (
+        <InfiniteScroll
+          dataLength={products ? products.length : 0}
+          next={() => lazyLoading(products.length)}
+          hasMore={products ? productDetails.totalCount !== products.length : false}
+          loader={<Spinner animation="grow" className="position-middle" />}
+        >
 				<Row className="mt-5">
 					{products.length ? products.map((product) => (
 						<>
-							<Col md="3">
-								<Card>
+							<Col md="3" key={product.name}>
+								<Card key={product.name}>
 									<CardImg className="img-height img-fluid" top width="100%" src={product.images[0].url} alt={product.name} />
 									<CardBody>
 										<CardTitle>{product.name}</CardTitle>
 										<CardTitle>
                       <i className="fa fa-inr" aria-hidden="true" />
-                      {numberWithCommas(product.price)} {' '}
+                      {numberWithCommas(product.price)}
+                      {' '}
 											<s className="small">
                         <i className="fa fa-inr" aria-hidden="true" />
                         {`${numberWithCommas(Math.round(product.price + percentage(product.price, product.discount)))}`}
-											</s> {' '}
+											</s>
+                      {' '}
 											<span className="text-danger">
-                        {product.discount}% off
+                        {product.discount}
+                        % off
 											</span>
 										</CardTitle>
 										<CardSubtitle className="small text-truncate">{product.description}</CardSubtitle>
@@ -88,11 +104,12 @@ const Products = ({dispatch, products, filterData}) => {
 						</>
 					)) : 'No Products available'}
 				</Row>
+        </InfiniteScroll>
 			) : (
 			  <>
           <Spinner animation="grow" className="position-middle" />
-        </>
-      )}
+     </>
+			)}
 		</Card>
   );
 };
@@ -100,6 +117,6 @@ export default Products;
 
 Products.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  products: PropTypes.arrayOf(PropTypes.any).isRequired,
+  productDetails: PropTypes.objectOf(PropTypes.any).isRequired,
   filterData: PropTypes.objectOf(PropTypes.any).isRequired,
 };
