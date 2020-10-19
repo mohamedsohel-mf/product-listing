@@ -5,6 +5,7 @@ import {
 import Header from "../components/layout/header";
 import Footer from "../components/layout/footer";
 import ProductContainer from "../container/ProductsContainer";
+import ErrorBoundary from "../components/common/ErrorBundry";
 
 function App() {
   return (
@@ -15,8 +16,10 @@ function App() {
           md={{ size: 10, offset: 1 }}
         >
           <Header />
-          <ProductContainer />
-          <Footer />
+          <ErrorBoundary>
+            <ProductContainer />
+            <Footer />
+          </ErrorBoundary>
         </Col>
       </Row>
     </Container>

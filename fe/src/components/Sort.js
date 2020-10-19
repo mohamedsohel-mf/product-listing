@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {
   Modal, ModalHeader, ModalBody,
 } from 'reactstrap';
-import {RadioButton} from "../common/RadioButton";
+import {RadioButton} from "./common/RadioButton";
 import {setSortFilter} from "../redux/action/ProductsAction";
 
 const Sort = ({toggle, className}) => {

@@ -73,10 +73,10 @@ const Products = ({dispatch, productDetails, filterData}) => {
           dataLength={products ? products.length : 0}
           next={() => lazyLoading(products.length)}
           hasMore={products ? productDetails.totalCount !== products.length : false}
-          loader={<Spinner animation="grow" className="position-middle" />}
+          loader={<Spinner animation="grow" />}
         >
 				<Row className="mt-5">
-					{products.length ? products.map((product) => (
+					{products && products.length ? products.map((product) => (
 						<>
 							<Col md="3" key={product.name}>
 								<Card key={product.name}>
@@ -102,7 +102,7 @@ const Products = ({dispatch, productDetails, filterData}) => {
 								</Card>
 							</Col>
 						</>
-					)) : 'No Products available'}
+					)) : <div className="mt-5 ml-4"> No Products Available</div>}
 				</Row>
         </InfiniteScroll>
 			) : (
